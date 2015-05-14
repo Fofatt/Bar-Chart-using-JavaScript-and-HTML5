@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+	<head></head>
+	<body>
+		<canvas id="myCanvas" width="310" height="345" style="background-color:lightgray;"></canvas>
+		<script>
+		
+		    var xBar = 30; //x position of the bars
+			var yBar; //y position of the bars
+			var barWidth = 40; //width of the bars
+			var barHeight = 80; //height of the bars
+			var gap = 30; //gap between the bars
+			var largest = 0; //variable to store the largest value
+			var scale = 3; //multiplication factor by which size of a bar will be magnified
+			var xLabel = 0; //x position of the texts below the bars to display their corresponding value 
+			var yLabel = 325; //y position of the texts below the bars to display their corresponding value 
+			
+			var canvas= document.getElementById('myCanvas');
+			var context = canvas.getContext('2d');
+			context.fillStyle = 'green';
+			var values = [40, 150, 280, 110]; //array storing values to generate the bar chart 
+			
+			//following for loop calculates the largest value of the array
+			
+			for (var i = 0; i < values.length; i++){
+				if(values[i] > largest){
+					largest = values[i];
+				}
+			}
+				
+			for (var i = 0; i < values.length; i++){
+				barHeight = (values[i]/largest)* 100 * scale; //calculating height of individual bars proportional to the corresponding value
+				yBar = 100 * scale - barHeight; //aligning the bottom position of the bars
+				context.fillRect(xBar, yBar, barWidth, barHeight); //drawing a bar
+				context.font = "12px Arial";
+				xLabel = xBar + barWidth/2; //calculating x position of the texts below the bars to display their corresponding value
+				context.textAlign = "center"; 
+				context.fillText(values[i], xLabel, yLabel) //writing values below the bars
+				xBar = xBar + barWidth + gap; //calculating x position to place the next bar
+			}
+		</script>
+	</body>
+</html>
+	
